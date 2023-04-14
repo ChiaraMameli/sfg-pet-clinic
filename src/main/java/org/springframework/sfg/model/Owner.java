@@ -1,4 +1,19 @@
 package org.springframework.sfg.model;
 
-public class Owner extends Person{
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
+
+@Entity
+@Setter
+@Getter
+@AllArgsConstructor
+public class Owner extends Person {
+    public Owner(String firstName, String lastName) {
+        super(firstName, lastName);
+    }
+
 }
