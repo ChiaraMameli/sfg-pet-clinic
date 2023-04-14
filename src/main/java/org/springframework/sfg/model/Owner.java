@@ -16,4 +16,8 @@ public class Owner extends Person {
         super(firstName, lastName);
     }
 
+    public String getFullName(){
+       return getFirstName() + " " + getLastName();
+    }
+
 }

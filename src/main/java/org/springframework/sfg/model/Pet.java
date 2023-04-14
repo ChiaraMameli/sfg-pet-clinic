@@ -11,6 +11,8 @@ import javax.persistence.*;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class Pet extends BaseEntity{
+    private String name;
 
 }

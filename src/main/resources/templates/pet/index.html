@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Pets</title>
+</head>
+<body>
+    <header th:insert="fragments/navbar :: navbar"></header>
+
+    <div class="container">
+        <h1>PET</h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="pet : ${pets}"
+                th:object="${pet}">
+                <th scope="row">[[*{id}]]</th>
+                <td>[[*{name}]]</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
