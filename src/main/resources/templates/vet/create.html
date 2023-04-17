@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <title>Title</title>
+</head>
+<body>
+<header th:insert="fragments/navbar :: navbar"></header>
+<div class="container">
+  <h1>CREATE</h1>
+
+  <form class="row" th:action="@{/vets/store}" method="POST">
+    <div class="mb-3 col-6">
+      <label for="first-name" class="form-label">First name</label>
+      <input type="text" class="form-control" id="first-name" name="firstName">
+    </div>
+
+    <div class="mb-3 col-6">
+      <label for="last-name" class="form-label">Last name</label>
+      <input type="text" class="form-control" id="last-name" name="lastName">
+    </div>
+
+    <div class="mb-3 col-6">
+      <h3 class="pt-3 pt-3 pb-1">Specialities</h3>
+      <div
+              th:each="speciality : ${specialities}"
+              th:object="${speciality}"
+              class="mb-3"
+      >
+        <input
+                type="checkbox"
+                name="specialities"
+
+                th:value="*{id}"
+                th:field="${vet.specialities}">
+        <label
+                th:text="*{description}">
+        </label>
+      </div>
+    </div>
+    <div class="mb-3 col-6"></div>
+
+    <button type="submit" class="btn btn-success">Save</button>
+  </form>
+
+
+</div>
+</body>
+</html>

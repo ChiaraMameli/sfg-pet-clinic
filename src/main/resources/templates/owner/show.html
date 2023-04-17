@@ -7,13 +7,26 @@
 </head>
 <body>
     <header th:insert="fragments/navbar :: navbar"></header>
-    <div class="container d-flex justify-content-center pt-5">
+    <div class="container d-flex justify-content-center pt-5 text-center"
+            th:object="${owner}">
         <div class="card" style="width: 18rem;">
             <div class="card-body">
-                <h5 class="card-title">[[${owner.getFullName()}]]</h5>
-                <h6 class="card-subtitle mb-2 text-muted">owner</h6>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
+                <h5 class="card-title">[[*{getFullName()}]]</h5>
+                <h6 class="card-subtitle mb-2 text-muted">[[*{city}]]</h6>
+                <div class="card-text">
+                    <address>[[*{address}]] </address>
+                    <address> [[*{telephone}]]</address>
+                </div>
+                <h5>Your pets: </h5>
+                <div th:each="pet : ${pets}" class="d-flex justify-content-between">
+                    <p>[[${pet.name}]]</p>
+                    <div>
+                        <a th:href="@{/pets/{id} (id = ${pet.id})}" class="btn btn-sm btn-warning"> Show pet</a>
+                    </div>
+                </div>
+                <div class="pt-3">
+                    <a th:href="@{/owners/{id}/add-pet (id = ${owner.id})}" class="card-link btn btn-success">Add new pet</a>
+                </div>
             </div>
         </div>
     </div>

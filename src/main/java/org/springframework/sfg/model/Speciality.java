@@ -10,9 +10,9 @@ import javax.persistence.Entity;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PetType extends BaseEntity{
+public class Speciality extends BaseEntity{
 
-    @Column(name = "name")
+    @Column(name = "description")
     @NonNull
-    private String name;
+    private String description;
 }
