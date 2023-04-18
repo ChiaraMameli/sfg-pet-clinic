@@ -23,6 +23,10 @@
                     <div>
                         <a th:href="@{/pets/{id} (id = ${pet.id})}" class="btn btn-sm btn-warning"> Show pet</a>
                     </div>
+                    <div>
+                        <a th:href="@{/pets/{id}/delete (id = ${pet.id})}" class="btn btn-sm btn-danger">Delete</a>
+                    </div>
+
                 </div>
                 <div class="pt-3">
                     <a th:href="@{/owners/{id}/add-pet (id = ${owner.id})}" class="card-link btn btn-success">Add new pet</a>

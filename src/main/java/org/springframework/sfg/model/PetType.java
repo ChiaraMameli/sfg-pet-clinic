@@ -9,10 +9,15 @@ import javax.persistence.Entity;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 public class PetType extends BaseEntity{
 
     @Column(name = "name")
     @NonNull
     private String name;
+
+    public PetType(Long id, @NonNull String name) {
+        super(id);
+        this.name = name;
+    }
 }

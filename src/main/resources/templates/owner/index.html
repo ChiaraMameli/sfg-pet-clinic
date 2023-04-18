@@ -21,7 +21,7 @@
                 <th scope="col">First name</th>
                 <th scope="col">Last name</th>
                 <th scope="col">City</th>
-                <th scope="col">Actions</th>
+                <th scope="col" class="text-center">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -31,8 +31,23 @@
                 <td>[[*{firstName}]]</td>
                 <td>[[*{lastName}]]</td>
                 <td>[[*{city}]]</td>
-                <td>
-                    <a th:href="@{/owners/{id} (id = *{id})}" type="button" class="btn btn-sm btn-warning">Show</a>
+                <td class="d-flex">
+                    <div>
+                        <a th:href="@{/owners/{id} (id = *{id})}" type="button" class="btn btn-sm btn-warning mr-1">Show</a>
+                    </div>
+                    <div>
+                        <a th:href="@{/owners/{id}/add-pet (id = *{id})}" type="button" class="btn btn-sm btn-secondary mr-1">Add pet</a>
+                    </div>
+
+                    <div>
+                        <a th:href="@{/owners/{id}/update (id = *{id})}" type="button" class="btn btn-sm btn-primary mr-1">Update</a>
+                    </div>
+
+                    <div>
+                        <a th:href="@{/owners/{id}/delete (id = *{id})}" type="button" class="btn btn-sm btn-danger mr-1">Delete</a>
+                    </div>
+
+
                 </td>
             </tr>
             </tbody>

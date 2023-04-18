@@ -1,6 +1,7 @@
 package org.springframework.sfg.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.sfg.dto.VetDto;
 import org.springframework.sfg.model.Speciality;
 import org.springframework.sfg.model.Vet;
 import org.springframework.sfg.services.SpecialityService;
@@ -26,7 +27,7 @@ public class VetController {
     @GetMapping
     public String index(Model model){
 
-        List<Vet> vets = vetService.findAllVets();
+        List<VetDto> vets = vetService.findAllVets();
         model.addAttribute("vets", vets);
 
         List<Speciality> specialities = specialityService.findAll();
@@ -39,7 +40,7 @@ public class VetController {
     @GetMapping("/create")
     public String create(Model model){
 
-        Vet vet = new Vet();
+        VetDto vet = new VetDto();
         model.addAttribute("vet", vet);
 
         List<Speciality> specialities = specialityService.findAll();
@@ -50,7 +51,7 @@ public class VetController {
     }
 
     @PostMapping("/store")
-    public String store(@ModelAttribute()Vet vet){
+    public String store(@ModelAttribute() VetDto vet){
 
         vetService.save(vet);
 

@@ -8,7 +8,7 @@ import javax.persistence.MappedSuperclass;
 @Setter
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @MappedSuperclass
 public class Person extends BaseEntity{
 
@@ -19,4 +19,10 @@ public class Person extends BaseEntity{
     @Column(name = "last_name")
     @NonNull
     private String lastName ;
+
+    public Person(Long id, @NonNull String firstName, @NonNull String lastName) {
+        super(id);
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 }

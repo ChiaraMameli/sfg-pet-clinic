@@ -1,9 +1,6 @@
 package org.springframework.sfg.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -24,8 +21,8 @@ public class Vet extends Person {
         super(firstName, lastName);
     }
 
-    public Vet(String firstName, String lastName, Set<Speciality> specialities) {
-        super(firstName, lastName);
+    public Vet(Long id, @NonNull String firstName, @NonNull String lastName, Set<Speciality> specialities) {
+        super(id, firstName, lastName);
         this.specialities = specialities;
     }
 }

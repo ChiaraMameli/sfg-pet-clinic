@@ -15,4 +15,9 @@ public class Speciality extends BaseEntity{
     @Column(name = "description")
     @NonNull
     private String description;
+
+    public Speciality(Long id, @NonNull String description) {
+        super(id);
+        this.description = description;
+    }
 }

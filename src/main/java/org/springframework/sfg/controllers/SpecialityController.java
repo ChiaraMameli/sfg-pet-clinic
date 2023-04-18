@@ -1,6 +1,7 @@
 package org.springframework.sfg.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.sfg.dto.SpecialityDto;
 import org.springframework.sfg.model.Speciality;
 import org.springframework.sfg.services.SpecialityService;
 import org.springframework.stereotype.Controller;
@@ -27,9 +28,9 @@ public class SpecialityController {
     }
 
     @PostMapping("/store")
-    public String store(@ModelAttribute()Speciality speciality){
+    public String store(@ModelAttribute() SpecialityDto speciality){
 
-        specialityService.saveSpeciality(speciality);
+        specialityService.save(speciality);
 
         return "redirect:/vets";
     }

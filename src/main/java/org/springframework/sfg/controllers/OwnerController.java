@@ -1,6 +1,9 @@
 package org.springframework.sfg.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.sfg.dto.OwnerDto;
+import org.springframework.sfg.dto.PetDto;
+import org.springframework.sfg.dto.PetTypeDto;
 import org.springframework.sfg.model.Owner;
 import org.springframework.sfg.model.Pet;
 import org.springframework.sfg.model.PetType;
@@ -27,19 +30,19 @@ public class OwnerController {
 
     @GetMapping
     public String index(Model model){
-        List<Owner> owners = ownerService.findAllOwnsers();
+        List<OwnerDto> owners = ownerService.findAllOwners();
         model.addAttribute("owners", owners);
 
         return "owner/index";
     }
 
     @GetMapping("/{id}")
-    public String show(@PathVariable("id") Long id, Model model){
+    public String show(@PathVariable("id") Long id, Model model) throws Exception{
 
-        Owner owner = ownerService.findOwnerById(id);
+        OwnerDto owner = ownerService.findOwnerById(id);
         model.addAttribute("owner", owner);
 
-        List<Pet> ownersPet = petService.findPetByOwnerId((long) id);
+        List<PetDto> ownersPet = petService.findPetByOwnerId((long) id);
         model.addAttribute("pets", ownersPet);
 
         return "owner/show";
@@ -48,30 +51,40 @@ public class OwnerController {
     @GetMapping("/create")
     public String create(Model model){
 
-        Owner newOwner = new Owner();
+        OwnerDto newOwner = new OwnerDto();
         model.addAttribute("owner", newOwner);
 
         return "owner/create";
     }
 
     @PostMapping("/store")
-    public String store(@ModelAttribute()Owner owner){
+    public String store(@ModelAttribute()OwnerDto owner){
 
         ownerService.save(owner);
 
         return "redirect:/owners";
     }
 
-    @GetMapping("{id}/add-pet")
-    public String createPet(@PathVariable("id") Long id, Model model){
+    @GetMapping("/{id}/delete")
+    public String delete(@PathVariable("id")Long id) throws Exception{
 
-        List<PetType> petTypes = petTypeService.findAll();
+        OwnerDto ownerDto = ownerService.findOwnerById(id);
+        ownerService.delete(ownerDto);
+
+        return "redirect:/owners";
+    }
+
+    @GetMapping("{id}/add-pet")
+    public String createPet(@PathVariable("id") Long id, Model model) throws Exception{
+        //TUTTO QUESTO DOVREBBE STARE IN UN METODO
+        List<PetTypeDto> petTypes = petTypeService.findAll();
         model.addAttribute("petTypes", petTypes);
 
-        Owner owner = ownerService.findOwnerById(id);
+        OwnerDto o = ownerService.findOwnerById(id);
+        Owner owner = OwnerDto.to(o);
         model.addAttribute("owner", owner);
 
-        Pet pet = new Pet();
+        PetDto pet = new PetDto();
         pet.setOwner(owner);
         model.addAttribute("pet", pet);
 
@@ -79,11 +92,21 @@ public class OwnerController {
     }
 
     @PostMapping("/store-pet")
-    public String storePet(@ModelAttribute() Pet pet){
+    public String storePet(@ModelAttribute()PetDto pet){
 
         petService.save(pet);
 
         return "redirect:/owners";
+    }
+
+    @GetMapping("/{id}/update")
+    public String update(@PathVariable("id") Long id, Model model) throws Exception{
+
+        OwnerDto odto = ownerService.findOwnerById(id);
+        Owner o = OwnerDto.to(odto);
+        model.addAttribute("owner", o);
+
+        return "owner/create";
     }
 
 

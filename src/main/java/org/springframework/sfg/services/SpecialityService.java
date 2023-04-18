@@ -1,6 +1,7 @@
 package org.springframework.sfg.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.sfg.dto.SpecialityDto;
 import org.springframework.sfg.model.Speciality;
 import org.springframework.sfg.repositories.SpecialityRepository;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,9 @@ public class SpecialityService {
     @Autowired
     private SpecialityRepository specialityRepository;
 
-    public void saveSpeciality(Speciality speciality){
+    public void save(SpecialityDto specialityDto){
+
+        Speciality speciality = SpecialityDto.to(specialityDto);
         specialityRepository.save(speciality);
     }
 

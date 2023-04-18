@@ -9,8 +9,7 @@ import java.util.Set;
 @Entity
 @Setter
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 public class Owner extends Person {
 
     @Column(name = "address")
@@ -25,18 +24,13 @@ public class Owner extends Person {
     @NonNull
     private String telephone;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<Pet> pets = new HashSet<>();
 
-    public Owner(String firstName, String lastName, String address, String city, String telephone) {
-        super(firstName, lastName);
+    public Owner(Long id, @NonNull String firstName, @NonNull String lastName, @NonNull String address, @NonNull String city, @NonNull String telephone) {
+        super(id, firstName, lastName);
         this.address = address;
         this.city = city;
         this.telephone = telephone;
     }
-
-    public String getFullName(){
-       return getFirstName() + " " + getLastName();
-    }
-
 }
