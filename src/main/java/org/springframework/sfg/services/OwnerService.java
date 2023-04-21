@@ -8,7 +8,7 @@ import org.springframework.sfg.model.Owner;
 import org.springframework.sfg.repositories.OwnerRepository;
 import org.springframework.stereotype.Service;
 
-import java.net.HttpRetryException;
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -43,7 +43,7 @@ public class OwnerService {
         return ownersDto;
     }
 
-    public void save(OwnerDto ownerDto){
+    public void save(OwnerDto ownerDto) {
 
         Owner owner = OwnerDto.to(ownerDto);
 
@@ -54,5 +54,14 @@ public class OwnerService {
         Owner owner = OwnerDto.to(ownerDto);
         ownerRepository.delete(owner);
 
+    }
+
+    public List<OwnerDto> findyAllByLastName(String lastName) throws Exception{
+        List<Owner> ownersList = ownerRepository.findAllByLastName(lastName);
+        List<OwnerDto> ownerDtoList = ownersList.stream().map((o)->{
+            OwnerDto ownerDto = OwnerDto.from(o);
+            return ownerDto;
+        }).collect(Collectors.toList());
+        return ownerDtoList;
     }
 }

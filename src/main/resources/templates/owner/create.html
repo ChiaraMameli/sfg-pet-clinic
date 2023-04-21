@@ -10,6 +10,16 @@
   <div class="container">
     <h1>CREATE</h1>
 
+    <div th:if="${errors}">
+      <div class="alert alert-danger" role="alert">
+        <ul>
+          <li th:each="error : ${errors}" th:object="${error}">
+            [[*{defaultMessage}]]
+          </li>
+        </ul>
+      </div>
+    </div>
+
     <form class="row"
           th:action="@{/owners/store}"
           th:object="${owner}"
@@ -42,7 +52,7 @@
         <input type="text" class="form-control" id="telephone" name="telephone" th:field="*{telephone}">
       </div>
 
-      <button type="submit" class="btn btn-success">Save and add pets</button>
+      <button type="submit" class="btn btn-success">Save</button>
     </form>
 
 

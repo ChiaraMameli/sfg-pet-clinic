@@ -10,15 +10,29 @@
 <div class="container">
   <h1>CREATE</h1>
 
-  <form class="row" th:action="@{/vets/store}" method="POST">
+  <div th:if="${errors}">
+    <div class="alert alert-danger" role="alert">
+      <ul>
+        <li th:each="error : ${errors}" th:object="${error}">
+          [[*{defaultMessage}]]
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+  <form class="row" th:action="@{/vets/store}" th:object="${vet}" method="POST">
+
+    <input name="id" th:field="*{id}" type="hidden">
+
     <div class="mb-3 col-6">
       <label for="first-name" class="form-label">First name</label>
-      <input type="text" class="form-control" id="first-name" name="firstName">
+      <input type="text" class="form-control" id="first-name" name="firstName" th:field="*{firstName}">
     </div>
 
     <div class="mb-3 col-6">
       <label for="last-name" class="form-label">Last name</label>
-      <input type="text" class="form-control" id="last-name" name="lastName">
+      <input type="text" class="form-control" id="last-name" name="lastName" th:field="*{lastName}">
     </div>
 
     <div class="mb-3 col-6">

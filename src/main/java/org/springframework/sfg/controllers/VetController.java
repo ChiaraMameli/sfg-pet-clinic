@@ -1,18 +1,18 @@
 package org.springframework.sfg.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.sfg.dto.SpecialityDto;
 import org.springframework.sfg.dto.VetDto;
-import org.springframework.sfg.model.Speciality;
 import org.springframework.sfg.model.Vet;
 import org.springframework.sfg.services.SpecialityService;
 import org.springframework.sfg.services.VetService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -30,9 +30,8 @@ public class VetController {
         List<VetDto> vets = vetService.findAllVets();
         model.addAttribute("vets", vets);
 
-        List<Speciality> specialities = specialityService.findAll();
+        List<SpecialityDto> specialities = specialityService.findAll();
         model.addAttribute("specialities", specialities);
-
 
         return "vet/index";
     }
@@ -43,7 +42,7 @@ public class VetController {
         VetDto vet = new VetDto();
         model.addAttribute("vet", vet);
 
-        List<Speciality> specialities = specialityService.findAll();
+        List<SpecialityDto> specialities = specialityService.findAll();
         model.addAttribute("specialities", specialities);
 
 
@@ -51,10 +50,28 @@ public class VetController {
     }
 
     @PostMapping("/store")
-    public String store(@ModelAttribute() VetDto vet){
+    public String store(@Valid @ModelAttribute() VetDto vet, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+
+        if(bindingResult.hasErrors()){
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            return "redirect:/vets/create";
+        }
 
         vetService.save(vet);
 
         return "redirect:/vets";
+    }
+
+    @GetMapping("/{id}/update")
+    public String update(@PathVariable("id")Long id, Model model) throws Exception{
+
+        VetDto dto = vetService.findVetById(id);
+        Vet vet = VetDto.to(dto);
+        model.addAttribute("vet", vet);
+
+        List<SpecialityDto> specialities = specialityService.findAll();
+        model.addAttribute("specialities", specialities);
+
+        return "vet/create";
     }
 }

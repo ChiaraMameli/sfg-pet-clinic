@@ -43,10 +43,6 @@ public class PetService {
         return ownersPetDto;
     };
 
-    public List<Pet> findAllPets(){
-        return petRepository.findAll();
-    }
-
     public void save(PetDto petDto){
         Pet pet = PetDto.to(petDto);
         petRepository.save(pet);

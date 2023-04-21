@@ -62,9 +62,9 @@ public class SfgPetClinicApplication implements CommandLineRunner {
 		petTypeService.savePetType(ptd3);
 		petTypeService.savePetType(ptd4);
 
-		OwnerDto od1 = new OwnerDto(1L, "Chiara", "Mameli", "via Pippo", "Torino", "000");
-		OwnerDto od2 = new OwnerDto(2L, "Francesco", "Esposito", "via Ciccio", "Napoli", "111");
-		OwnerDto od3 = new OwnerDto(3L, "Valeria", "Caria", "via Pluto", "Cagliari", "222");
+		OwnerDto od1 = new OwnerDto(1L, "Chiara", "Mameli", "via Pippo", "Torino", "0000000000");
+		OwnerDto od2 = new OwnerDto(2L, "Francesco", "Esposito", "via Ciccio", "Napoli", "1111111111");
+		OwnerDto od3 = new OwnerDto(3L, "Valeria", "Caria", "via Pluto", "Cagliari", "2222222222");
 
 		ownerService.save(od1);
 		ownerService.save(od2);

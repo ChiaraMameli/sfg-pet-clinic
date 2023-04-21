@@ -7,6 +7,7 @@ import org.springframework.sfg.repositories.SpecialityRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SpecialityService {
@@ -20,7 +21,13 @@ public class SpecialityService {
         specialityRepository.save(speciality);
     }
 
-    public List<Speciality> findAll(){
-        return specialityRepository.findAll();
+    public List<SpecialityDto> findAll(){
+        List<Speciality> specialities = specialityRepository.findAll();
+        List<SpecialityDto> specialityDtos = specialities.stream().map((s)->{
+            SpecialityDto specialityDto = SpecialityDto.from(s);
+            return specialityDto;
+        }).collect(Collectors.toList());
+
+        return specialityDtos;
     }
 }

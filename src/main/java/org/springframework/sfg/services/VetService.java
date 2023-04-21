@@ -16,8 +16,14 @@ public class VetService {
     @Autowired
     private VetRepository vetRepository;
 
-    public Optional<Vet> findVetById(Long id){
-        return vetRepository.findById(id);
+    public VetDto findVetById(Long id) throws Exception{
+        Vet vet = vetRepository.findById(id).orElseThrow(()-> new Exception("Not found"));
+        VetDto dto = VetDto.from(vet);
+        dto.setId(vet.getId());
+        dto.setFirstName(vet.getFirstName());
+        dto.setLastName(vet.getLastName());
+        dto.setSpecialities(vet.getSpecialities());
+        return dto;
     }
 
     public List<VetDto> findAllVets(){
